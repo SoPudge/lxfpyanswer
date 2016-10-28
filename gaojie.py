@@ -30,26 +30,37 @@ def str2int(s):
     return reduce(fn,map(char2num,s))
 print(str2int('19874567')*9)
 #练习利用map()函数，把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。输入：['adam', 'LISA', 'barT']，输出：['Adam', 'Lisa', 'Bart']：
-def normalize(name):
-   namexiao =  name.lower()
-   namefenli = list(namexiao)#注意一定要这一步，直接用list(name)的话会，无论如何操作这个list都是指定的
-   namefenli[0] = namefenli[0].upper()#这里将第一个字符大写
-   def aplus(x,y):
-       return x+y#字符串相加即代表合并
-   return reduce(aplus,namefenli)
 #def normalize(name):
+#   namexiao =  name.lower()
+#   namefenli = list(namexiao)#注意一定要这一步，直接用list(name)的话会，无论如何操作这个list都是指定的
+#   namefenli[0] = namefenli[0].upper()#这里将第一个字符大写
+#   def aplus(x,y):
+#       return x+y#字符串相加即代表合并
+#   return reduce(aplus,namefenli)
+#def normalize(name):#第二种方式
 #    return [name[m].capitalize() for m in range(3)]
+#第三种方式
+def normalize(name):
+    for nalst in name:
+        nalst = name.lower()
+        nalst = nalst[0].upper() + nalst[1:]
+        return nalst
 L1 = ['adam', 'LISA', 'barT']
 L2 = list(map(normalize, L1))#一定要这一步，map类似是一个生成器，所以必须用list把他显性化
 print(L2)
 #Python提供的sum()函数可以接受一个list并求和，请编写一个prod()函数，可以接受一个list并利用reduce()求积：
+#def prod(L): 
+#    def qiuji(x,y):
+#        return x*y
+#    return reduce(qiuji,L)#关键在于定义reduce中第一个函数的计算方式
+#print('3 * 5 * 7 * 9 =', prod([3, 5, 7, 9]))
+#第一种方式
+#def prod(L): 
+#    sum = 1
+#    for m in L: 
+#        sum = sum * m 
+#    return sum
+#第二种方式
 def prod(L):
-    def qiuji(x,y):
-        return x*y
-    return reduce(qiuji,L)#关键在于定义reduce中第一个函数的计算方式
+    return reduce(lambda x,y:x*y,L)
 print('3 * 5 * 7 * 9 =', prod([3, 5, 7, 9]))
-#利用map和reduce编写一个str2float函数，把字符串'123.456'转换成浮点数123.456：
-def str2float(s):
-    h = float(s)
-    return h
-print('str2float(\'123.456\') =', str2float('123.456'))
