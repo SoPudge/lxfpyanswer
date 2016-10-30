@@ -60,7 +60,7 @@ print(L2)
 #    for m in L: 
 #        sum = sum * m 
 #    return sum
-#第二种方式
+#第二种方式1030
 def prod(L):
     return reduce(lambda x,y:x*y,L)
 print('3 * 5 * 7 * 9 =', prod([3, 5, 7, 9]))
