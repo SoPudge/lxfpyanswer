@@ -5,9 +5,11 @@
 L = [('Bob', 75), ('Adam', 92), ('Bart', 66), ('Lisa', 88)]
 def by_name(t):
     return t[0].lower()
-L2 = sorted(L,key = lambda x:x[0].lower())
+L2 = sorted(L,key = by_name)#排序的核心就是key=后面是排序函数，可以用lambda也可以用自定义的def
+#L2 = sorted(L,key = lambda x:x[0].lower())
 print(L2)
 def by_score(t):
     return t[1]#key指定的函数将作用于list的每一个元素上，并根据key函数返回的结果进行排序
-L2=sorted(L,key=lambda x:x[1])
+#L2=sorted(L,key=lambda x:x[1])
+L2 = sorted(L,key = by_score)
 print(L2)
