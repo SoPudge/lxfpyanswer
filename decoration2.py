@@ -60,10 +60,10 @@ f100()
 def outer(func):
     def inner():
         print('认证成功')
-        result = func()
+        result= func()
         print('日志添加成功')
         return result
-    return inner()
+    return inner
 @outer
 def f1():
     print('业务部门1数据接口……')
@@ -81,6 +81,59 @@ f1()
 f2()
 f3()
 f100()
-#装饰器的作用相当于outer(f1())，用@语法糖来表示而已
-#需要注意的是，在outer函数当中需要return一个result，把f1()的结果呈现出来，可以省略返回result
+#这里首先看到outer函数，并且返回了一个inner函数，outer函数读入内存不执行
+#然后向下遇到了@outer，那么就会立即执行outer(f1)，执行过程如下
+#首先建立outer(f1)，此时就有func = f1，就是func指向f1执行结果所在的地址
+#然后执行到inner，将f1 = inner赋值，此时的f1就已经是inner内的内容了
+#然后return返回inner，由于返回函数名，所以此时不显示任何东西
+#上面步骤完成了func指向老f1，新f1指向inner的过程，以后调用就是调用的新f1，达到了新老结合装饰的目的
+#最后调用新f1的话，就会执行inner的内容
+#详细执行过程讲解见链接：http://www.cnblogs.com/feixuelove1009/p/5541632.html
+#
+#return = func()带括号的原因就是func()会执行，而func不会执行，所以一定要带括号，要执行老函数达到装饰目的
+#return一个result的原因是调用f1的返回值，达到装饰器更进一步灵活装饰的目的，这里f1没有返回值，所以不返回内容
 #原因是最终outer返回的是inner函数名，不会执行inner的结果，所以即使省略返回result，也不会返回默认的NONE
+#为什么要在outer中封装两层呢，因为只封装一层的话，inner就会立即执行，不会等到后面调用f1
+##############第四个例子##############
+def outer(func):
+    def inner(*args,**kwargs):
+        print("认证成功！")
+        result = func(*args,**kwargs)
+        print("日志添加成功")
+        return result
+    return inner
+
+@outer
+def f1(name,age):
+    print("%s 正在连接业务部门1数据接口......"%name)
+    
+# 调用方法
+f1("jack",18)
+#我们有*args和**kwargs嘛！号称“万能参数”！简单修改一下上面的代码：
+##############第四个例子##############
+#一个函数被多个装饰器装饰，顺序如何，请了解
+#记住，多个装饰器的执行顺序是上下执行
+def outer1(func):
+    def inner(*args,**kwargs):
+        print("认证成功！")
+        result = func(*args,**kwargs)
+        print("日志添加成功")
+        return result
+    return inner
+
+def outer2(func):
+    def inner(*args,**kwargs):
+        print("一条欢迎信息。。。")
+        result = func(*args,**kwargs)
+        print("一条欢送信息。。。")
+        return result
+    return inner
+
+@outer1
+@outer2
+def f1(name,age):
+    print("%s 正在连接业务部门1数据接口......"%name)
+
+# 调用方法
+f1("jack",18)
+
