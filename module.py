@@ -3,6 +3,7 @@
 'a test module'
 __author__ = 'Jonchil Zhang'
 import sys
+print(__name__)
 def test():
     args = sys.argv
     if len(args) == 1:
@@ -14,11 +15,4 @@ def test():
 if __name__ == '__main__':
 #详见evernote解释
     test()
-    print('尼玛')
-print(test.__name__)
-def yhsj(h):
-    L = [1]
-    for i in range(1,h):
-        yield L
-        L.append(0)
-        L = [L[i] + L[i-1] for i in range(1,h)]
+#这个脚本被执行的时候，name 值就是 main ，才会执行 main()函数。如果这个脚本是被 import 的话，name的值不一样。main()函数就不会被调用。这个句子用来写既能直接运行，又能给其他python程序import，提供库调用的脚本
