@@ -22,4 +22,6 @@ print(type(lambda x:x) == types.LambdaType)
 print(type(x for x in range(10)) == types.GeneratorType)
 
 #除了使用type来判断，但是对于类的继承关系的判断，可以通过instance这种实例方式判断
+print(isinstance([1,2,3],tuple))
+#使用dir来获取一个对象的所有方法
 
