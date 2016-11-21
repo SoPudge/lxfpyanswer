@@ -15,5 +15,8 @@ print(Student2.name)
 #这里可以通过直接给类一个name的属性，可以直接引用student2.name即可
 k = Student2('Jay')
 k.age = 18
+m = Student2('Slash')
 print(k.age)
-
+print(hasattr(k,'age'))
+print(hasattr(m,'age'))
+#给类绑定属性的话，是所有实例共有的，但是给实例绑定属性，是实例独有的
