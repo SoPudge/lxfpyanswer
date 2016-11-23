@@ -42,10 +42,24 @@ n.score = 90
 print(n.score)
 #property这种方式当中，有.setter的话，是一个写入方法，只有property的话就是一个只读方法
 class Screen(object):
+    @property
+    def width(self):
+        return self._width
+    @property
+    def height(self):
+        return self._height
+    @property
+    def resolution(self):
+        return self._width * self._height
+    @width.setter
+    def width(self,w_value):
+        self._width = w_value
+    @height.setter
+    def height(self,w_height):
+        self._height = w_height
 
 s = Screen()
 s.width = 1024
 s.height = 768
 print(s.resolution)
 assert s.resolution == 786432, '1024 * 768 = %d ?' % s.resolution
-
