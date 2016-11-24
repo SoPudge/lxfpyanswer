@@ -5,7 +5,10 @@ class Student(object):
         self.name = name
     def __str__(self):
         return 'the name is %s' % self.name
+    __repr__ = __str__
 print(Student('Jay'))
+s = Student('May')
+print(s)
 #第一种定制类，str，用这个得意义在于，直接调用类的时候，可以返回一个预定义的字符串，而不是类的地址
 class Fib(object):
     def __init__(self):
@@ -72,4 +75,13 @@ print(Chain().status.user)
 #下一步执行Chain('/status/user').timeline，过程同上
 #简单来说就是chain类执行init初始化，属性执行getattr，然后再返回一个chain类，依次循环执行，直到结束
 #返回一个值 Chain('/status/user')
-#第二种定制类是__iter__函数完成的，
+#call定制类
+class Student(object):
+    def __init__(self,name):
+        self.name = name
+    def __call__(self):
+        print('My name is %s.' % self.name)
+s = Student('Michael')
+s()
+Student('Michael')
+#call的意义在于重载一个()，使得对象可以当成函数调用
