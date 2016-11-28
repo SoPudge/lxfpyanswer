@@ -64,4 +64,13 @@ def main():
 main()
 print('END')
 #通过日志记录，可以让问题打印，但是不暂停执行程序，程序正常执行完毕之后才会退出
-#抛出错误可以自定义错误的类，然后执行：
+#抛出错误可以自定义错误的类，然后执行
+class FooError(ValueError):
+    pass
+def foo(s):
+    n = int(s)
+    if n == 0:
+        raise FooError('invalid value:%s' % s)
+    return 10 / n
+foo('0')
+#可以从ValueError中派生一个自定义类，然后从该类当中抛出错误
