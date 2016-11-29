@@ -74,3 +74,15 @@ def foo(s):
     return 10 / n
 foo('0')
 #可以从ValueError中派生一个自定义类，然后从该类当中抛出错误
+def foo(s):
+    n = int(s)
+    if n == 0:
+        raise ValueError('invalid value: %s' % s)
+    return 10 / n
+def bar():
+    try:
+        foo('0')
+    except ValueError as e:
+        print('ValueError!')
+        raise
+bar()
