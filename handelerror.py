@@ -86,3 +86,4 @@ def bar():
         print('ValueError!')
         raise
 bar()
+#使用raise的话，错误会抛出，由foo内部的错误进行显示
