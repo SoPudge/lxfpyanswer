@@ -9,6 +9,9 @@ class Dict(dict):
             raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
     def __setattr__(self,key,value):
         self[key] = value
+h = Dict(a = 1,b = 2)
+print(h['a'])
+print(h.a)
 
 import unittest
 class TestDict(unittest.TestCase):
@@ -21,4 +24,5 @@ class TestDict(unittest.TestCase):
         d = Dict()
         d['key'] = 'value'
         self.assertEqual(d.key,'value')
-    def test_attr(self)
+    def test_attr(self):
+        pass

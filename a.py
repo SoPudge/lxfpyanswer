@@ -1,7 +1,8 @@
-def foo(s):
-    n = int(s)
-    assert n != 0,'n is zero!'
-    return 10 / n
-def main():
-    foo('0')
-main()
+# -*- coding: utf-8 -*-
+class myclass(object):
+    def chen(self,a,b):
+        return a+b
+obj = myclass()
+print(obj.chen(8,9))
+h = getattr(obj,'chen')
+print(h)
