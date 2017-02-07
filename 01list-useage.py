@@ -44,10 +44,12 @@ print(d['mic'])
 d['mic'] = 8
 print(d['mic'])
 
+#修改mic值之后，剩余的字典是什么，就是最新的数值823
+print(d)
 #验证dic内部元素
-'min' in d
-'mic' in d
-d.get('mim',-9)
+print('min' in d)
+print('mic' in d)
+print(d.get('mic',-9))
 
 #删除一个key如何操作
 d.pop('zzq')
@@ -62,6 +64,3 @@ print(s)
 
 s.remove(6)
 print(s)
-
-
-
