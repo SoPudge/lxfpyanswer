@@ -17,7 +17,9 @@ print(sum)
 print ('利用foin-in打印L = [\'Bart\',\'Lisa\',\'Adam\']')
 L = ['Bart','Lisa','Adam']
 for x in L:
-    print (x)
+    print ('Hello ' + x)
+#使用列表生成方式，记得使用中括号表示列表生成
+print(['Hello ' + x for x in L])
 print ('利用while打印L = [\'Bart\',\'Lisa\',\'Adam\']')
 n = 0
 while n < len(L):
