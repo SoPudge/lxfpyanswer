@@ -6,6 +6,13 @@ def power(x,n):
         n = n - 1
         s = s*x
     return s
+def power2(x,n = 2):
+    s = 1
+    for m in range(1,n+1):
+        s = s*x
+    return s
+print('利用for函数来计算：')
+print(power2(4,3))
 name1 = int(input('输入power参数计算x的n次方'))
 name2 = int(input('输入N参数'))
 print(power(name1,name2))
