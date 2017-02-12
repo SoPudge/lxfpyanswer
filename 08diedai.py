@@ -1,5 +1,5 @@
 # -*- cOding: UTF-8 -*- 
-print('迭代一个list，遍历它，d = {\'a\': 1, \'b\': 2, \'c\': 3}')
+print('迭代一个dict，遍历它，d = {\'a\': 1, \'b\': 2, \'c\': 3}')
 d = {'a': 1, 'b': 2, 'c': 3}
 for xxx in d:
     print(xxx)
@@ -22,3 +22,8 @@ print(L)
 for m,n in enumerate(L,1):
     print(m,n)
     pass
+s = enumerate(L,1)
+print(list(s))
+print('可以用for in循环来迭代多个list，给for传入多个参数')
+for x,y in ([1,1],[2,5],[3,6]):
+    print(x,y)

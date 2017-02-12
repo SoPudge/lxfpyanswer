@@ -2,17 +2,23 @@
 #列表生成式学习过程
 import os
 print('生成1，2，3，4，5这样一个列表,可以直接用 list(range(100))')
-print(list(range(100)))
-print('生成1*1，2*2，3*1的list')
+print(list(range(1,101)))
+print('生成1*1，2*2，3*3的list')
 L = []
-for x in range(1,10):
+for x in range(1,11):
     L.append(x*x)
 print(L)
 #第二种方式列表生成式
-print([x*x for x in range(1,10)])
-print([x*x for x in range(1,10) if x % 2 == 0])
+print([x*x for x in range(1,11)])
+print([x*x for x in range(1,11) if x % 2 == 0])
 print([m+n for m in 'abc' for n in 'xyz'])
-print([d for d in os.listdir('.')]);
+print([d for d in os.listdir('.')])
+print([d for d in os.listdir('.') if d[0] != '.'])#列表非隐藏文件
+#竖形列表
+for d in os.listdir('.'):
+    if d[0] != '.':
+        print(d)
+    pass
 d = {'x': 'A', 'y': 'B', 'z': 'C' }
 for m,n in d.items():
     print (m,"=",n)
