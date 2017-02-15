@@ -25,10 +25,12 @@ print(reduce(fn,[1,4,7,9,5,3,5]))
 def str2int(s):
     def fn(x,y):
         return x*10 + y
-    def char2num(s):
-        return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[s]
+    def char2num(m):
+        return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[m]
     return reduce(fn,map(char2num,s))
 print(str2int('19874567')*9)
+#这里char2num的返回值实际上就是通过字典的语法，读出字典key对应的value，达到char转num目的
+#再把转换成列表的num，转换成int
 #练习利用map()函数，把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。输入：['adam', 'LISA', 'barT']，输出：['Adam', 'Lisa', 'Bart']：
 #def normalize(name):
 #   namexiao =  name.lower()
@@ -44,10 +46,16 @@ def normalize(name):
     for nalst in name:
         nalst = name.lower()
         nalst = nalst[0].upper() + nalst[1:]
-        return nalst
+    return nalst
 L1 = ['adam', 'LISA', 'barT']
 L2 = list(map(normalize, L1))#一定要这一步，map类似是一个生成器，所以必须用list把他显性化
 print(L2)
+#上述步骤简化版本
+def normalize2(name):
+    return name[0].upper()+name[1:].lower()
+L1 = ['adam', 'LISA', 'barT']
+L3 = list(map(normalize2, L1))
+print(L3)
 #Python提供的sum()函数可以接受一个list并求和，请编写一个prod()函数，可以接受一个list并利用reduce()求积：
 #def prod(L): 
 #    def qiuji(x,y):
@@ -67,5 +75,6 @@ print('3 * 5 * 7 * 9 =', prod([3, 5, 7, 9]))
 #利用map和reduce编写一个str2float函数，把字符串'123.456'转换成浮点数123.456：
 def str2float(s):
     def fn(x,y):
-        return x*10+y
-    def str2float: 
+        return 
+    def str2num(m):
+        return {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[m]
