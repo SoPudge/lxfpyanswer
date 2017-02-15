@@ -10,8 +10,6 @@ def fib(max):
     n,a,b = 0,0,1
     while n < max:
         print(b)
-        #b = a + b
-        #a = b
         a ,b = b, a+b#exchange a and b without temp
         n = n + 1
     return "done"
@@ -47,18 +45,22 @@ def triangles():
     while True:
         yield L
         L.append(0)
-        L = [L[i]+L[i-1] for i in range(len(L))]
-#首先附加L增加位数，然后重新定义L，增加位数的L，实际上是上一个列表，后面加0
-#此时，只需要江该列表的第一位和第二位相加，就是下一个列表的第二位
+        L = [L[i]+L[i-1] for i in range(len(L))] 
+#杨辉三角的概念是
+#L=121，补位1210
+#然后L[-1]+L[0],L[0]+L[1],L[1]+L[2],L[2]+L[3]
+#所以就是1331
+#不能由上往下来理解，而应该平行的理解
 #print("print triangles",triangles(9))
+#
 def triangles2():
     L = [1]
     while True:
         S = L
         yield L
         L.append(1)
-        for t in range(1,len(L)-1):
-            L[t]=S[t]+S[t-1]
+        for t in range(len(L)-1):
+            L[t+1]=S[t]+S[t+1]
 
 n = 0
 for x in triangles2():
