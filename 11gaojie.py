@@ -81,8 +81,11 @@ def str2float(s):
     def str2num(m):
         return {'.': 0,'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}[m]
     def fenli(s):
-        sz = [x for x in s if(x = '.') break]
-    numlst = map(str2num,s)
-    dotnum = dot(s)
-    sz = 
+        n = 0
+        while s[n] != '.':
+            n = n+1
+        sz = s[:n]
+        sf = s[-n:-1]
+        return sz,sf
+    zheng,fen = fenli(s)
 
