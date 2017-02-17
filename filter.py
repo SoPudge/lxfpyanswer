@@ -25,9 +25,15 @@ def primes():
         n = next(it)
         yield n
         it = filter(ifsushu(n),it)#这里用到参数n是因为素数都是奇数，所以只用测试odditer中的所有奇数，用ifsushu来测试是否被整除，测试函数是>0的，代表不能整除，即奇数
+        #yield n
+#上面内容的精华在while循环，其中fileter用it奇数列，来筛选其中每个数，是否可以整除大于1
+#例如3 5 7 9 11 13 15 17 19，fliter用3来筛选这个数列，就去掉了可以被3整数的所有数，这都不是素数
+#然后留下的数值，再继续同样的筛选即可
+#这里需要注意，fliter筛选后的数列，仍然是原数列，所以next会获取下一个值来筛选
+#见filter廖雪峰的课程，自己发帖说明了缘由
 # 打印1000以内的素数:
 for n in primes():
-    if n < 50:
+    if n < 500:
         print(n)
     else:
         break
