@@ -50,6 +50,6 @@ for n in primes():
 #            return True
 #下面的代码是直接对比数字正向和反向是否相等
 def is_palindrome(n):
-    return str(n) == str(n)[::-1]
+    return str(n) == str(n)[::-1]#这里是切片，-1代表从右向左来读取
 output = filter(is_palindrome, range(1, 1000))
 print(list(output))

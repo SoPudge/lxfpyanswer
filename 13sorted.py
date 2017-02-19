@@ -13,3 +13,6 @@ def by_score(t):
 #L2=sorted(L,key=lambda x:x[1])
 L2 = sorted(L,key = by_score)
 print(L2)
+#需要注意的是sorted接收的是list类型的参数，所以说给定的L实际上是个list，里面含有多个tuple
+#所以定义的排序函数by_score的话，可以直接看成引用list当中的元素，即return t[1]，代表引用
+#整个tuple，如果按字母排序，则小写，如果按数字排序，则返回数字，而sorted会自动排序
