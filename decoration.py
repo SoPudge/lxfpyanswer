@@ -12,6 +12,7 @@ def log(func):
 def now():
     print ('2015-05-06')
 now()
+print('##########################')
 #function.wraps的作用举例
 def decoration(func):
     def wrapper(*args,**kw):
