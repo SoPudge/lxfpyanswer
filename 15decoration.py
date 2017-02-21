@@ -46,6 +46,7 @@ myfunc()
 print('##########################')
 #练习：请编写一个decorator，能在函数调用的前后打印出'begin call'和'end call'的日志。
 def decoration2(func):
+    @functools.wraps(func)
     def wrapper(*args,**kw):
         print('begin call')
         func(*args,**kw)
@@ -56,7 +57,9 @@ def decoration2(func):
 @decoration2
 def dayin():
     print('this is call')
+    print(dayin.__name__)
 dayin()
+print('##########################')
 #再思考一下能否写出一个@log的decorator，使它既支持：
 #@log     
 #def f():
@@ -65,3 +68,30 @@ dayin()
 #@log('execute')
 #def f():
 #    pass
+def log(arg):
+    if isinstance(arg,str):
+        def decoration(func):
+            @functools.wraps(arg)
+            def wrapper(*args,**kw):
+                print('test deco',arg)
+                return func(*args,**kw)
+            return wrapper
+        return decoration
+    else:
+        @functools.wraps(arg)
+        def wrapper(*args,**kw):
+            print('test deco')
+            return arg(*args,**kw)
+        return wrapper
+#本例用的多重装饰的思想，其中if用来给装饰器传入参数arg
+#如果需要传入参数str，则判断使用多重装饰，即if后面的内容
+#如果不需要传入参数，则将log看成第一重装饰器
+@log
+def f():
+    print('123')
+f()
+
+@log('excuate')
+def f():
+    print('567')
+f()
