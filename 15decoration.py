@@ -84,7 +84,8 @@ def log(arg):
             return arg(*args,**kw)
         return wrapper
 #本例用的多重装饰的思想，其中if用来给装饰器传入参数arg
-#如果需要传入参数str，则判断使用多重装饰，即if后面的内容
+#如果需要传入参数str，则判断使用多重装饰，将log看成第二层装饰，然后内部decoration看成第一层装饰
+#log装饰器专门负责转入参数
 #如果不需要传入参数，则将log看成第一重装饰器
 @log
 def f():
