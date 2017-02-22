@@ -8,6 +8,8 @@ s = Student()
 s.myscore = 89
 s.myscore = 56
 print(s.myscore)
+#如何查看类有多少个属性
+print(dir(Student))
 #在这种情况下，可以在类当中定义两种方式，一种是写入，一种是读取，读写分离，安全
 class Student2(object):
     def get_score(self):
@@ -22,6 +24,7 @@ m = Student2()
 m.set_score(88)
 m.set_score(59)
 print(m.get_score())
+print(dir(m))
 #以上例子当中，get和set都是类的方法，方法调用需要如同函数一样，如果其中有self，则省略，有参数，则必须传输参数
 #而上例子当中set方法当中的value参数，则是纯粹的参数，而score因为在self实例后面，所以是属性
 #以上例子做到了读取写入分离，无法在外部修改，当然，猜到了写入方法除外
