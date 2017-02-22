@@ -4,8 +4,11 @@
 __author__ = 'Jonchil Zhang'
 import sys
 print(__name__)
+print(__author__)
 def test():
     args = sys.argv
+#sys.argv是系统函数，代表给文件传入了几个参数，专门用于验证参数，他的默认参数是文件名称
+#所以如果args==1的话，那么就代表没有传输参数
     if len(args) == 1:
         print('Hello,world!')
     elif len(args) == 2:
