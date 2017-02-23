@@ -9,7 +9,7 @@ s.myscore = 89
 s.myscore = 56
 print(s.myscore)
 #如何查看类有多少个属性
-print(dir(Student))
+print(dir(s))
 #在这种情况下，可以在类当中定义两种方式，一种是写入，一种是读取，读写分离，安全
 class Student2(object):
     def get_score(self):
