@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Student(object):
+class Student(object): 
     pass
 bart = Student()
 print(bart)
