@@ -13,6 +13,7 @@ print(type('abc') == str)
 print(type('abc') == type(123))
 
 #除了判断基础数据类型，还能判断函数是什么性质的函数，内置的，通用的，还是虚拟函数等等
+#这里有内置的常量，供对比用
 import types
 def fn():
     pass
@@ -32,6 +33,8 @@ print(len(dog))
 dog2 = MyDog()
 print(len(dog2))
 print(dog2.__len__())
+#这里因为len(dog)的这个len方法，本身就是一个类中自带的__len__方法
+#所以如果我们自定义一个__len__方法的话，就会覆盖默认方法
 #定义了len之后可以用以上的方式来进行len的长度查询
 class MyObject(object):
     def __init__(self):
@@ -41,9 +44,13 @@ class MyObject(object):
 obj = MyObject()
 print(hasattr(obj,'x'))
 print(hasattr(obj,'y'))
+#print(obj.x)
+print(obj.power())
 #这是hasattr来判断是否有这个属性
 setattr(obj,'z',19)
 print(hasattr(obj,'z'))
+print(hasattr(MyObject,'z'))
+#可以发现，子类自己设置的属性，父类没有
 print(obj.z)
 print(obj.x)
 objnew = MyObject()
