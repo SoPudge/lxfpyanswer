@@ -1,15 +1,21 @@
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*- 
 #利用特殊用途的函数对传统class进行改造称之为定制类
 class Student(object):
     def __init__(self,name):
         self.name = name
     def __str__(self):
         return 'the name is %s' % self.name
-    __repr__ = __str__
+#    __repr__ = __str__
 print(Student('Jay'))
 s = Student('May')
 print(s)
+print(dir(s)) 
 #第一种定制类，str，用这个得意义在于，直接调用类的时候，可以返回一个预定义的字符串，而不是类的地址
+#因为__str__是类自带的方法，所以通过覆盖自带方法，达到返回自定义值的目的
+#同时价值在于直接调用实例名称就可以获得对应的默认值，而不需要通过s.name这样的属性定义获得对应的值
+s = (i for i in range(1,101))
+#每一个iter对象，可以循环的对象，都有iter方法和next方法可以调用
+print(hasattr(s,'__next__'))
 class Fib(object):
     def __init__(self):
         self.a,self.b = 0,1
@@ -31,6 +37,8 @@ print(it.__next__())
 print(it.__next__())
 print(it.__next__())
 #iter对象的意思就是在类中返回迭代器，因为类含有next对象，所以每次返回的self本身又具有next方法，所以可以不停地next
+#class拥有iter和next默认方法，所以通过在Fib中自定义iter方法，可以覆盖默认的
+#这个类实际上是把斐波那契数列的生成方法放到next当中，每次返回下一个值
 class Fib2(object):
     def __getitem__(self,n):
         a,b = 1,1
@@ -50,6 +58,11 @@ class Student(object):
 s = Student()
 print(s.name)
 print(s.score)
+print(s.grade) #这里返回none
+#通过getattr方法可以定义当引用不存在的类方法时候，返回内容是什么
+#注意一旦使用了getattr，那么针对getattr当中定义的方法，返回定义的内容
+#对于引用的方法，如果getattr当中不存在，则返回none，因为所有不存在方法的引用，都被getattr接管了
+#如果getattr中没有定义，就是返回none
 class Chain(object):
     def __init__(self,value = ''):                    #这里是类对象的初始化，有一个默认参数传入，默认参数为空，同样也可以传入一个字符串
         self._path = value                            #执行的结果就是Chain类的_path属性等于传输的字符串，或等于空
@@ -58,6 +71,8 @@ class Chain(object):
     def __str__(self):                                #定义打印类本身的结果
         return self._path                             #定义的结果是实例，传入一个字符串，即初始化__init__的结果
     __repr__ = __str__                                #定义输入类本身，显示的结果，和打印类显示的结果一致
+s = Chain()
+print(s.status.user.timeline.list)
 print(Chain().status.user.timeline.list)
 #执行顺序讲解：
 print(Chain().status)
