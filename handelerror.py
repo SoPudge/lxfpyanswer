@@ -13,7 +13,7 @@ def bar():
 #一旦出错，还要一级一级上报，除此之外，可以使用try..except..finall
 try:
     print('try...')
-    r = 10 / 2
+    r = 10 / 0
     print('result',r)
 except ZeroDivisionError as e:
     print('except:',e)
