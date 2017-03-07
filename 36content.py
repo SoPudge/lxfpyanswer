@@ -3,7 +3,7 @@
 import os
 from datetime import datetime
 print(os.name)
-print(os.uname())
+#print(os.uname())
 #print(os.environ)
 print(os.environ.get('PATH'))
 print(os.environ.get('x','default'))
@@ -29,5 +29,9 @@ for finfo in os.listdir('.'):
     mtime = datetime.fromtimestamp(os.path.getmtime(finfo)) 
     print(mtime,fsize,finfo)
 #编写一个程序，能在当前目录以及当前目录的所有子目录下查找文件名包含指定字符串的文件，并打印出相对路径。
-find_str = input('your want to find str: ')
-def getstr(find_str):
+def getstr():
+    find_str = input('your want to find str: ')
+    for listdir in os.listdir():
+        if find_str in listdir:
+            print(os.path.abspath(listdir))
+getstr()
