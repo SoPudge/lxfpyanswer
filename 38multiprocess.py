@@ -6,7 +6,7 @@ if pid == 0:
     print('i am a child process (%s) and my parent is %s' % (os.getpid(),os.getppid()))
 else:
     print('i (%s) just created a child process(%s)' % (os.getpid,pid))
-
+#windows系统当中没有os.fork的调用，所以会报错
 from multiprocessing import Process
 import os
 
