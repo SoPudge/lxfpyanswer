@@ -51,7 +51,7 @@ import os,time,random
 def long_time_task(name):
     print('run task %s (%s)' % (name,os.getpid()))
     start = time.time()
-    time.sleep(random.random())
+    time.sleep(1)
     end = time.time()
     print('task %s runs %0.2f seconds.' % (name,(end-start)))
 
@@ -64,3 +64,12 @@ if __name__ == '__main__':
     p.close()
     p.join()
     print('all subprocess done.')
+
+#注意多进程之间的执行一定是并行的，虽然是并行的执行，但是由于long_time_task中的sleep函数存在，执行时间仍然是有区别的
+#而且通过p.join方法，可知在子进程执行的时候，父进程是阻塞的，待子进程全部执行完毕，父进程才会执行完毕，所以all subprocess done是最后执行的
+#由于在if当中定义了Pool(4)，所以进程池只能同时并行4个进程，由于time.sleep的存在，4个并行进程的start时间按循环的先后顺序来
+#但是子进程的结束时间要看随机的sleep函数何时完毕，所以最终每个子进程执行完毕打印task runs的顺序并不一样，因为执行时间不同
+#需要注意的是，由于进程池只有4个进程，而for循环当中有0-4一共5个循环过程，所以当执行完0123四个进程中最快结束的那个后（最快是由sleep方法随机决定的）
+#才会执行第5个进程，即for循环当中的4号循环，同时按照执行完成的先后顺序打印执行结果
+#p.apply_async是非阻塞版本的多进程执行，所以在执行子进程的时候，子进程是并行执行的，并不会等待某个子进程结束后再执行另一个，执行允许只和for执行顺序有关
+#而p.close则是关闭进程池，必须，p.join代表主进程阻塞，等待子进程执行完毕之后，再执行join方法之后的主进程内容
