@@ -75,15 +75,30 @@ import os,time,random
 #而p.close则是关闭进程池，必须，p.join代表主进程阻塞，等待子进程执行完毕之后，再执行join方法之后的主进程内容
 
 import subprocess
-print('$ nslookup www.python.org')
-r = subprocess.call(['nslookup','www.python.org'],shell=True)
-print(r)
+#print('$ nslookup www.python.org')
+#r = subprocess.call(['nslookup','www.python.org'])
+#print(r)
+#
+#print('$ nslookup')
+#p = subprocess.Popen(['nslookup'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+#output,err=p.communicate(b'set q=mx\npython.org\nexit\n')
+#print(output.decode('utf-8'))
+#print('exit code: ',p.returncode)
+#这两个子进程的例子，用于在更复杂的子进程当中，其中call方法是popen方法的简化版本，可以快速调用系统命令，传入参数是一个list
+#popen方法更加基础，可以传入一个list为命令，通过stdin,stdout,stderr获取对应的输入和输出数据
+#pipe则是linux当中标准的进程通讯方式，在subprocess.Popen当中，接收stdin管道输入的数据，输出stdout和stderr当中输出的数据，需要培训communicate
+#communicate接收一个参数，通过管道输入给stdin，并且返回两个参数，通过管道接收自Popen方法，即输出和报错
+#所以在Popen方法之后，通过stdout管道输出到communicate方法，再通过communicate方法返回到output值，打印即结果
 
-print('$ nslookup')
-p = subprocess.Popen(['nslookup'],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
-output,err=p.communicate(b'set q=mx\npython.org\nexit\n')
-print(output.decode('utf-8'))
-print('Exit code:',p.returncode)
+#例题：通过多进程ping www.baidu.com一共100次，并返回结果，看单进程耗时，和多进程耗时
+#单进程耗时
 
-#subprocess.run(["ls","-l"])
-subprocess.run("exit 1",shell=True,check=True)
+def baidu_ping():
+    p = subprocess.call(['ping','www.baidu.com','-c','4'])
+    print(p)
+    print('subprocess pid is: ', os.getpid(),os.getppid())
+if __name__ == '__main__':
+    s = Process(target=baidu_ping)
+    s.start()
+    s.join()
+    print('ping pid is',os.getpid())
