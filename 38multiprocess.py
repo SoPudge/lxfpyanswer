@@ -93,12 +93,19 @@ import subprocess
 #例题：通过多进程ping www.baidu.com一共100次，并返回结果，看单进程耗时，和多进程耗时
 #单进程耗时
 
-def baidu_ping():
-    p = subprocess.call(['ping','www.baidu.com','-c','4'])
-    print(p)
-    print('subprocess pid is: ', os.getpid(),os.getppid())
-if __name__ == '__main__':
-    s = Process(target=baidu_ping)
-    s.start()
-    s.join()
-    print('ping pid is',os.getpid())
+#def baidu_ping():
+#    p = subprocess.call(['ping','www.baidu.com','-c','12'])
+#    print(p)
+#    print('subprocess pid is: ', os.getpid(),os.getppid())
+#if __name__ == '__main__':
+#    s = Process(target=baidu_ping)
+#    s_time = time.time()
+#    s.start()
+#    s.join()
+#    e_time = time.time()
+#    print('use time %0.2f ' % (e_time-s_time))
+#
+
+#进程间通讯
+from multiprocessing import Process,Queue
+import os,time,random
