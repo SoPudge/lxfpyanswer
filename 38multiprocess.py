@@ -48,23 +48,23 @@ import os,time,random
 
 #for i in range(5):
 #    print(i)
-#def long_time_task(name):
-#    print('run task %s (%s)' % (name,os.getpid()))
-#    start = time.time()
-#    time.sleep(1)
-#    end = time.time()
-#    print('task %s runs %0.2f seconds.' % (name,(end-start)))
-#
-#if __name__ == '__main__':
-#    print('parent process %s' % os.getpid())
-#    p = Pool(4)
-#    for i in range(5):
-#        p.apply_async(long_time_task,args=(i,))
-##    print('waiting for all subprocess done...')
-##    p.close()
-##    p.join()
-##    print('all subprocess done.')
- #
+def long_time_task(name):
+    print('run task %s (%s)' % (name,os.getpid()))
+    start = time.time()
+    time.sleep(random.random() * 3)
+    end = time.time()
+    print('task %s runs %0.2f seconds.' % (name,(end-start)))
+
+if __name__ == '__main__':
+    print('parent process %s' % os.getpid())
+    p = Pool(10)
+    for i in range(10):
+        p.apply_async(long_time_task,args=(i,))
+    print('waiting for all subprocess done...')
+    p.close()
+    p.join()
+    print('all subprocess done.')
+
 ##注意多进程之间的执行一定是并行的，虽然是并行的执行，但是由于long_time_task中的sleep函数存在，执行时间仍然是有区别的
 ##而且通过p.join方法，可知在子进程执行的时候，父进程是阻塞的，待子进程全部执行完毕，父进程才会执行完毕，所以all subprocess done是最后执行的
 ##由于在if当中定义了Pool(4)，所以进程池只能同时并行4个进程，由于time.sleep的存在，4个并行进程的start时间按循环的先后顺序来
@@ -110,25 +110,25 @@ import os,time,random
 from multiprocessing import Process,Queue
 import os,time,random
 
-def write(q):
-    print('Process to write: %s' % os.getpid())
-    for value in ['A','B','C']:
-        print('Put %s to queue...' % value)
-        q.put(value)
-        time.sleep(random.random())
-
-def read(q):
-    print('Process to read: %s' % os.getpid())
-    while True:
-        value = q.get(True)
-        print('Get %s from queue.' % value)
-
-if __name__ == '__main__':
-    q = Queue()
-    pw = Process(target=write,args=(q,))
-    pr = Process(target=read,args=(q,))
-    pw.start()
-    pr.start()
-    pw.join()
-    pr.terminate()
+#def write(q):
+#    print('Process to write: %s' % os.getpid())
+#    for value in ['A','B','C']:
+#        print('Put %s to queue...' % value)
+#        q.put(value)
+#        time.sleep(random.random())
+#
+#def read(q):
+#    print('Process to read: %s' % os.getpid())
+#    while True:
+#        value = q.get(True)
+#        print('Get %s from queue.' % value)
+#
+#if __name__ == '__main__':
+#    q = Queue()
+#    pw = Process(target=write,args=(q,))
+#    pr = Process(target=read,args=(q,))
+#    pw.start()
+#    pr.start()
+#    pw.join()
+#    pr.terminate()
 #通过定义read和write读写方法，然后调用该方法向QUEUE当中读写内容，即可达到进程间通讯的目的
