@@ -50,7 +50,8 @@
 #你可能注意到了，py也可以匹配'python'，但是加上^py$就变成了整行匹配，就只能匹配'py'了。
 
 import re
-print(re.match(r'^\d{3}-\d{8}$','027-87526532'))
+result = re.match(r'^\d{3}-\d{8}$','027-87526532')
+print(result)
 #匹配电话号码成功
 
 ####切分字符串####
@@ -103,3 +104,6 @@ print(m.match('someone.abc@gmail.com'))
 
 n = re.compile(r'<(.*)>\s*(\w+.?\w+@\w+.\w+)')
 print(n.match('<Tom Paris> tom@voyager.org').groups(1))
+
+tz_num = int(re.match(r'^UTC(\+|\-)(\d{1,2}):00$','UTC+8:00').group(2))
+print(tz_num)
