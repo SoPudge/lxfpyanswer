@@ -9,3 +9,4 @@ print(base64.b64encode(b'i\xb7\x1d\xfb\xef\xff'))
 print(base64.urlsafe_b64encode(b'i\xb7\x1d\xfb\xef\xff'))
 #可以在URL当中加密内容，比如中文
 print(base64.urlsafe_b64decode(b'abcd--__'))
+print(base64.urlsafe_b64encode(b'zhongqi.zhang'))
