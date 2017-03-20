@@ -46,3 +46,11 @@ with tag('h1'):
     print('world')
 #执行过程首先是with语句执行tag当中的print语句，然后遇到yield，将结果返回，返回执行with当中的print语句
 #当yield之后，下次循环继续执行yield后面的内容开始，即tag当中的第二个print
+
+from contextlib import closing
+from urllib.request import urlopen
+
+with closing(urlopen('http://www.python.contextmanager')) as page:
+    for line in page:
+        print(line)
+#closeing的作用是把任意对象变为上下文对象，使之支持with语句
