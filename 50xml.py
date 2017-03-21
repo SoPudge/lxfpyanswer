@@ -14,9 +14,70 @@ xml = r'''<?xml version="1.0"?>
         <li><a href="/ruby">Ruby</a></li>
         </ol>
         '''
-handler = DefaultSaxHandler()
-parser = ParserCreate()
-parser.StartElementHandler = handler.start_element
-parser.EndElementHandler = handler.end_element
+handler = DefaultSaxHandler()#初始化一个saxhandler对象，用于解析xml文件
+parser = ParserCreate()#初始化一个XML创建方法，用于解析XML文件，其中有三个方法，start,end cahr分别解析XML文件的开始符号，结束符号
+#和中间字符串
+#注意，解析是事件驱动的，按照顺序来解析
+
+parser.StartElementHandler = handler.start_element 
+parser.EndElementHandler = handler.end_element 
 parser.CharacterDataHandler = handler.char_data
 parser.Parse(xml)
+print(parser.Parse)
+
+#请利用SAX编写程序解析Yahoo的XML格式的天气预报，获取当天和第二天的天气：
+
+#http://weather.yahooapis.com/forecastrss?u=c&w=2151330
+
+#参数w是城市代码，要查询某个城市代码，可以在weather.yahoo.com搜索城市，浏览器地址栏的URL就包含城市代码。
+
+from xml.parsers.expat import ParserCreate
+class WeatherSaxHandler(object):
+    def __init__(self):
+        self.weatherResult = {}
+    def startElement(self,name,attrs):
+        if name == 'yweather:location':
+            self.weatherResult['city'] = attrs['city']
+            self.weatherResult['country'] = attrs['country']
+        elif name == 
+
+        print(self.weatherResult)
+        #print(name,attrs)
+
+
+
+
+
+
+
+data = r'''<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<rss version="2.0" xmlns:yweather="http://xml.weather.yahoo.com/ns/rss/1.0" xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#">
+    <channel>
+            <title>Yahoo! Weather - Beijing, CN</title>
+                    <lastBuildDate>Wed, 27 May 2015 11:00 am CST</lastBuildDate>
+                            <yweather:location city="Beijing" region="" country="China"/>
+                                    <yweather:units temperature="C" distance="km" pressure="mb" speed="km/h"/>
+                                            <yweather:wind chill="28" direction="180" speed="14.48" />
+                                                    <yweather:atmosphere humidity="53" visibility="2.61" pressure="1006.1" rising="0" />
+                                                            <yweather:astronomy sunrise="4:51 am" sunset="7:32 pm"/>
+                                                                    <item>
+                                                                                <geo:lat>39.91</geo:lat>
+                                                                                            <geo:long>116.39</geo:long>
+                                                                                                        <pubDate>Wed, 27 May 2015 11:00 am CST</pubDate>
+                                                                                                                    <yweather:condition text="Haze" code="21" temp="28" date="Wed, 27 May 2015 11:00 am CST" />
+                                                                                                                                <yweather:forecast day="Wed" date="27 May 2015" low="20" high="33" text="Partly Cloudy" code="30" />
+                                                                                                                                            <yweather:forecast day="Thu" date="28 May 2015" low="21" high="34" text="Sunny" code="32" />
+                                                                                                                                                        <yweather:forecast day="Fri" date="29 May 2015" low="18" high="25" text="AM Showers" code="39" />
+                                                                                                                                                                    <yweather:forecast day="Sat" date="30 May 2015" low="18" high="32" text="Sunny" code="32" />
+                                                                                                                                                                                <yweather:forecast day="Sun" date="31 May 2015" low="20" high="37" text="Sunny" code="32" />
+                                                                                                                                                                                        </item>
+                                                                                                                                                                                            </channel>
+                                                                                                                                                                                            </rss>
+                                                                                                                                                                                            '''
+def parser_weather(xml):
+    handler = WeatherSaxHandler()
+    parser = ParserCreate()
+    parser.StartElementHandler = handler.startElement
+    parser.Parse(xml)
+#调用
+weather = parser_weather(data)
