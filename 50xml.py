@@ -25,24 +25,41 @@ parser.CharacterDataHandler = handler.char_data
 parser.Parse(xml)
 print(parser.Parse)
 
+print('###################')
 #请利用SAX编写程序解析Yahoo的XML格式的天气预报，获取当天和第二天的天气：
 
 #http://weather.yahooapis.com/forecastrss?u=c&w=2151330
 
 #参数w是城市代码，要查询某个城市代码，可以在weather.yahoo.com搜索城市，浏览器地址栏的URL就包含城市代码。
 
+#from xml.parsers.expat import ParserCreate
+#class WeatherSaxHandler(object):
+#    def __init__(self):
+#        self.weatherResult = {}
+#    def startElement(self,name,attrs):
+#        if name == 'yweather:location':
+#            self.weatherResult['city'] = attrs['city']
+#            self.weatherResult['country'] = attrs['country']
+#        elif name == 'yweather:condition':
+#            self.weatherResult['currenDay'] = attrs['date'][5:7]
+#        elif name == 'yweather:forecast' and attrs['date'][:2] == self.weatherResult['currenDay']:
+#            self.weatherResult['today'] = {'text':attrs['text'],'low':int(attrs['low']),'high':int(attrs['high'])}
+#        elif name == 'yweather:forecast' and int(attrs['date'][:2]) == int(self.weatherResult['currenDay'])+1:
+#            self.weatherResult['tomorrow'] = {'text':attrs['text'],'low':int(attrs['low']),'high':int(attrs['high'])}
+#        #print(self.weatherResult)
+        #print(name,attrs)
+
+####第二种代码####
 from xml.parsers.expat import ParserCreate
+from datetime import datetime
 class WeatherSaxHandler(object):
     def __init__(self):
         self.weatherResult = {}
+        currentDay = datetime.strptime(now(),'%m %b %Y')
     def startElement(self,name,attrs):
         if name == 'yweather:location':
             self.weatherResult['city'] = attrs['city']
             self.weatherResult['country'] = attrs['country']
-        elif name == 
-
-        print(self.weatherResult)
-        #print(name,attrs)
 
 
 
@@ -79,5 +96,15 @@ def parser_weather(xml):
     parser = ParserCreate()
     parser.StartElementHandler = handler.startElement
     parser.Parse(xml)
+    return handler.weatherResult
 #调用
 weather = parser_weather(data)
+assert weather['city'] == 'Beijing', weather['city']
+assert weather['country'] == 'China', weather['country']
+assert weather['today']['text'] == 'Partly Cloudy', weather['today']['text']
+assert weather['today']['low'] == 20, weather['today']['low']
+assert weather['today']['high'] == 33, weather['today']['high']
+assert weather['tomorrow']['text'] == 'Sunny', weather['tomorrow']['text']
+assert weather['tomorrow']['low'] == 21, weather['tomorrow']['low']
+assert weather['tomorrow']['high'] == 34, weather['tomorrow']['high']
+print('Weather:', str(weather))
