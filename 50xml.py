@@ -51,15 +51,27 @@ print('###################')
 
 ####第二种代码####
 from xml.parsers.expat import ParserCreate
-from datetime import datetime
+from datetime import datetime,date,timedelta
+print(date.today().year)
+class get15Date(object):
+    def __init__(self,*args):
+        cDay = (date.today().year,date.today().month,date.today().day)
+        currentDay = datetime.strftime(datetime(cDay[0],cDay[1],cDay[2]),'%d %b %Y') 
+    def calc15Date(self):
+
+        dateDict = {'today':currentDay}
+mydate = get15Date()
+print(mydate)
 class WeatherSaxHandler(object):
     def __init__(self):
         self.weatherResult = {}
-        currentDay = datetime.strptime(now(),'%m %b %Y')
     def startElement(self,name,attrs):
         if name == 'yweather:location':
             self.weatherResult['city'] = attrs['city']
             self.weatherResult['country'] = attrs['country']
+        #for getDate in 
+        print(name,attrs)
+
 
 
 
@@ -107,4 +119,4 @@ assert weather['today']['high'] == 33, weather['today']['high']
 assert weather['tomorrow']['text'] == 'Sunny', weather['tomorrow']['text']
 assert weather['tomorrow']['low'] == 21, weather['tomorrow']['low']
 assert weather['tomorrow']['high'] == 34, weather['tomorrow']['high']
-print('Weather:', str(weather))
+print('Weather:', str(weathe))

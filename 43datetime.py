@@ -3,11 +3,9 @@ from datetime import datetime
 now = datetime.now()
 print(now)
 #获取当前日期
-#currentDay = datetime.strptime(str(datetime.date),'%m %b %Y')
-#print(currentDay)
 print('###########')
-today = datetime.date.today()
-print(today)
+#today = datetime.date.today()
+#print(today)
 print(type(now))
 #这里datetime是模块，含有一个datetime类
 dt = datetime(2015,4,19,12,20)
