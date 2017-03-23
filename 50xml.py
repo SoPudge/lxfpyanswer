@@ -53,24 +53,18 @@ print('###################')
 from xml.parsers.expat import ParserCreate
 from datetime import datetime,date,timedelta
 print(date.today().year)
-class get15Date(object):
-    def __init__(self,*args):
-        cDay = (date.today().year,date.today().month,date.today().day)
-        currentDay = datetime.strftime(datetime(cDay[0],cDay[1],cDay[2]),'%d %b %Y') 
-    def calc15Date(self):
-
-        dateDict = {'today':currentDay}
-mydate = get15Date()
-print(mydate)
 class WeatherSaxHandler(object):
     def __init__(self):
         self.weatherResult = {}
+        self.dateStatus = 0
     def startElement(self,name,attrs):
         if name == 'yweather:location':
             self.weatherResult['city'] = attrs['city']
             self.weatherResult['country'] = attrs['country']
-        #for getDate in 
-        print(name,attrs)
+            print(name,attrs)
+        elif name == 'yweather:forecast':
+            self.weatherResult['today'] = {'text':attrs['text'],'low':int(attrs['low']),'high':int(attrs['high'])}
+            self.dateStatus = self.dateStatus + 1
 
 
 
