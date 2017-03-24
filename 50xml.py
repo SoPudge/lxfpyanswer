@@ -50,7 +50,7 @@ print('###################')
         #print(name,attrs)
 
 ####第二种代码####
-from xml.parsers.expat import ParserCreate
+from xml.parsers.expat import ParserCreate 
 from datetime import datetime,date,timedelta
 print(date.today().year)
 class WeatherSaxHandler(object):
@@ -63,14 +63,20 @@ class WeatherSaxHandler(object):
             self.weatherResult['country'] = attrs['country']
             print(name,attrs)
         elif name == 'yweather:forecast':
-            self.weatherResult['today'] = {'text':attrs['text'],'low':int(attrs['low']),'high':int(attrs['high'])}
-            self.dateStatus = self.dateStatus + 1
-
-
-
-
-
-
+            if self.dateStatus == 0:
+                self.weatherResult['today'] = {'text':attrs['text'],'low':int(attrs['low']),'high':int(attrs['high'])}
+                self.dateStatus = self.dateStatus + 1
+            elif self.dateStatus == 1:
+                self.weatherResult['tomorrow'] = {'text':attrs['text'],'low':int(attrs['low']),'high':int(attrs['high'])}
+                self.dateStatus = self.dateStatus + 1
+            elif self.dateStatus >= 2:
+                for self.dateStatus in range(2,14):
+                    self.weatherResult[self.dateStatus] = {'text':attrs['text'],'low':int(attrs['low']),'high':int(attrs['high'])}
+                    self.dateStatus = self.dateStatus + 1
+    def EndElement(self,name):
+        pass
+    def charData(self,data):
+        pass
 
 
 data = r'''<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
@@ -113,4 +119,8 @@ assert weather['today']['high'] == 33, weather['today']['high']
 assert weather['tomorrow']['text'] == 'Sunny', weather['tomorrow']['text']
 assert weather['tomorrow']['low'] == 21, weather['tomorrow']['low']
 assert weather['tomorrow']['high'] == 34, weather['tomorrow']['high']
-print('Weather:', str(weathe))
+print('Weather:', str(weather))
+#首先需要了解XML读取是一个回调函数，并且是事件驱动的方法
+#意思就是我们需要定义读取方法，由系统调用，遇到某一个标签，则调用某一个方法
+#需要注意的是，如果要读取15天的天气预报，不能使用循环的方式，因为当读取到第三天的内容的时候，他是在第三天循环
+#而不会顺序到第四天去读取，因为读取方式是面向过程的，一行一行的读取
