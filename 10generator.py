@@ -54,13 +54,14 @@ def triangles():
 #print("print triangles",triangles(9))
 #
 def triangles2():
+    n = 1
     L = [1]
-    while True:
-        S = L
-        yield L
-        L.append(1)
-        for t in range(len(L)-1):
-            L[t+1]=S[t]+S[t+1]
+    while n > 0:
+        yield L#返回L数组
+        M,L = L,L+[1]#借助临时变量，将老L存储到M当中，新L增加一位
+        n = n + 1
+        for i in range(1,n-1):#新L的第二位，等于老L的上一位，加当前位，循环即可
+            L[i] = M[i-1]+M[i]
 
 n = 0
 for x in triangles2():
