@@ -5,10 +5,11 @@ class Student(object):
         self.name = name
     def __str__(self):
         return 'the name is %s' % self.name
-#    __repr__ = __str__
+    __repr__ = __str__
 print(Student('Jay'))
 s = Student('May')
 print(s)
+print(Student)
 print(dir(s)) 
 #第一种定制类，str，用这个得意义在于，直接调用类的时候，可以返回一个预定义的字符串，而不是类的地址
 #因为__str__是类自带的方法，所以通过覆盖自带方法，达到返回自定义值的目的
@@ -32,10 +33,10 @@ it = Fib()
 print(it.__next__())
 print(it.__next__())
 print(it.__next__())
-print(it.__next__())
-print(it.__next__())
-print(it.__next__())
-print(it.__next__())
+#print(it.__next__())
+#print(it.__next__())
+#print(it.__next__())
+#print(it.__next__())
 #iter对象的意思就是在类中返回迭代器，因为类含有next对象，所以每次返回的self本身又具有next方法，所以可以不停地next
 #class拥有iter和next默认方法，所以通过在Fib中自定义iter方法，可以覆盖默认的
 #这个类实际上是把斐波那契数列的生成方法放到next当中，每次返回下一个值
@@ -66,14 +67,20 @@ print(s.grade) #这里返回none
 class Chain(object):
     def __init__(self,value = ''):                    #这里是类对象的初始化，有一个默认参数传入，默认参数为空，同样也可以传入一个字符串
         self._path = value                            #执行的结果就是Chain类的_path属性等于传输的字符串，或等于空
-    def __getattr__(self,value1):                      #Chain类的实例如果引用了一个未定义的属性，则调到这里执行，同时可以也可以传输一个字符串参数
-        return Chain('%s/%s' % (self._path,value1))    #执行的结果是返回一个Chain(self._path/value)的类，括号当中是字符串，上一步执行的字符串
+    def __getattr__(self,attr):                      #Chain类的实例如果引用了一个未定义的属性，则调到这里执行，同时可以也可以传输一个字符串参数
+        return Chain('%s/%s' % (self._path,attr))    #执行的结果是返回一个Chain(self._path/value)的类，括号当中是字符串，上一步执行的字符串
     def __str__(self):                                #定义打印类本身的结果
         return self._path                             #定义的结果是实例，传入一个字符串，即初始化__init__的结果
     __repr__ = __str__                                #定义输入类本身，显示的结果，和打印类显示的结果一致
 s = Chain()
 print(s.status.user.timeline.list)
 print(Chain().status.user.timeline.list)
+#20170930最新理解
+#实际上最精巧的地方在于__init__的定义，它定义了一个实例的默认参数为空，当然也可以传入一个参数
+#所以实际上在调用的s.status.user.timeline.list的时候，调用顺序是从左向右调用
+#s.status执行，但发现实例当中并没有status这个属性，所以由__getattr__接管，返回的值是Chain('self._path/status')
+#但是由于s.status中实例s并没有传入一个参数，所以实际上实例s的self._path属性，是默认参数“”即空
+#所以前一步打印Chain('/status')执行结果就是触发str，显示self._path，由init得知，值就是字符串'/status'后面类似
 #执行顺序讲解：
 print(Chain().status)
 #首先执行Chain()，打印结果为空，因为初始化的类本身没有传入字符串，所以self._path为空
