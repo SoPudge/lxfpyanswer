@@ -4,7 +4,7 @@ class Student(object):
 bart = Student()
 print(bart)
 print(Student)
-#这里显示类和实力的名字
+#这里显示类和实例的名字
 #下面验证给类绑定属性
 bart.name = 'vicent'
 print(bart.name)
@@ -30,23 +30,26 @@ print(dir(bart))
 #继承或者使用方法，而不用关心实现细节
 class Student3(object):
     def __init__(self,name,score,grade):
-        self._name = name
+        self.__name = name
         self._score = score
         self._grade = grade
     def get_score(self):
         print(self._score)
     def get_name(self):
-        print(self._name)
+        print(self.__name)
     def get_grade(self):
         print(self._grade)
     def print_stuInfo(self):
-        print (self._name,self._score,self._grade)
+        print (self.__name,self._score,self._grade)
 bart = Student3('jon',89,'A')
 #print(dir(Student3))
 bart.print_stuInfo()
 bart.get_score()
 bart.get_name()
 bart.get_grade()
+print(bart._score)#单下划线开头的，可以外部直接调用
+print(bart.__name)#双下划线开头的属性，不能直接被调用
+#双单下划线开头的方法，调用与否也与属性一致
 #init的意义在于初始化实例，可以知道该类接收几个参数，分别干什么用
 #后面的get方法，用于实现需求，方法可以在实例中调用，同时有self的原因是
 #接收参数本身，因为bart.get_score()这种调用方式，本身就是传入了一个参数，就是实例本身
