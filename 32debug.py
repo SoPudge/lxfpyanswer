@@ -14,15 +14,18 @@ def foo(s):
 def main():
     foo('0')
 #main()
-#assert是断言的意思是断言后面跟的内容如果满足，则什么都不做，否则执行显示断言后半段内容
+#assert是断言的意思是断言后面跟的内容如果满足，则什么都不做，否则抛出错误，显示后半段内容
 #此处n=0的话，则断言不成立，那么执行n is zero
 import logging
-logging.basicConfig(level = logging.INFO)
+import pdb
+logging.basicConfig(level = logging.WARNING)
+pdb.set_trace()
 s = '0'
 n = int(s)
 logging.info('n = % d' % n)
 print(10 / n)
 #logging输出错误的信息
+#插入pdb.set_trace()插入断点
 s = '0'
 n = int(s)
 print(10/n)
