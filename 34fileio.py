@@ -9,10 +9,11 @@ try:
 finally:
     if f1:
         f1.close()
+        print('关闭文件F1')
 #通过try和finally可以实现打开后无论是否报错，都关闭文件
 #因为如果不关闭文件，会导致文件读取到内存当中，占用空间
 with open('32debug.py','r',encoding = 'utf-8') as f2:
-    print(f2.read())
+    print(f2.read(),'关闭文件第二次')
 #with语句实现自动关闭，而不必每次都f.close
 with open('32debug.py','r',encoding = 'utf-8') as f2:
     print(f2.read())
