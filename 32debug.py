@@ -18,11 +18,11 @@ def main():
 #此处n=0的话，则断言不成立，那么执行n is zero
 import logging
 import pdb
-logging.basicConfig(level = logging.WARNING)
-pdb.set_trace()
+logging.basicConfig(level = logging.DEBUG)
+#pdb.set_trace()
 s = '0'
 n = int(s)
-logging.info('n = % d' % n)
+logging.info('n = %d' % n)
 print(10 / n)
 #logging输出错误的信息
 #插入pdb.set_trace()插入断点
