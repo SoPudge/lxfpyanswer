@@ -4,14 +4,20 @@
 import pickle
 d = dict(name = 'bob',age = 20,score = 90)
 p = pickle.dumps(d)
+print('下面是序列化之后的内容')
 print(p)
 #这里通过dumps来将dict对象进行序列化
+print('下面是序列化之还原后的内容')
 print(pickle.loads(p))
 #这里通过loads来进行还原
 
 f = open('dump.txt','wb')
 pickle.dump(d,f)
 f.close()
+print('读取文件序列化内容')
+with open('dump.txt','rb') as f:
+    f.read()
+#这里是新建一个文件，并且把序列化的d字典，存储到f当中
 #再次注意，在进行open的时候，必须定义open的方式才能进行对应的read或者write操作
 #如wb即代表写二进制数据，此时无法进行读取操作
 #这里将文件进行序列化，同时上例中的字典d，写入文件
@@ -19,7 +25,9 @@ f.close()
 f = open('dump.txt','rb')
 d = pickle.load(f)
 f.close()
+print('读取序列化还原内容')
 print(d)
+#读取文件f，并还原序列化的内容
 #这里还原文件，但是文件内容不变，因为只是读取，而非修改
 
 import json
