@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*- 
 import socket
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-s.connect(('10.166.49.28',80))
+s.connect(('www.baidu.com',80))
 s.send(b'GET / HTTP/1.1\r\nHost: 10.166.49.28\r\nConnection: close\r\n\r\n')
 #以上建立socket连接，并发送数据
 
